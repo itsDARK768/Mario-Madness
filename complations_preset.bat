@@ -12,7 +12,7 @@ set /p respuesta=
 
 if /i "%respuesta%"=="Y" (
     echo Compiling... This can take a while
-    lime test windows -debug
+    lime test windows
     pause
 ) else if /i "%respuesta%"=="N" (
     echo Exiting...

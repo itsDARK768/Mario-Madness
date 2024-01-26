@@ -182,7 +182,7 @@ class StoryMenuState extends MusicBeatSubstate
 		overlay.alpha = 0;
 		add(overlay);
 		
-		@:privateAccess FlxG.camera._filters.insert(0, new ShaderFilter(staticShader = new TVStatic()));
+		FlxG.camera.camFilters.insert(0, new ShaderFilter(staticShader = new TVStatic()));
 		staticShader.strengthMulti.value = [0.5];
 		staticShader.imtoolazytonamethis.value = [.3];
 

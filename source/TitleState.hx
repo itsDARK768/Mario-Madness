@@ -137,7 +137,7 @@ class TitleState extends MusicBeatState {
 		camGame = new FlxCamera();		
 		camFollow = new FlxObject((FlxG.width / 2) + 2.5, (FlxG.height / 2) - 50, 1, 1);
 		camGame.target = camFollow;
-		FlxCamera.defaultCameras = [camGame];
+		FlxG.cameras.setDefaultDrawTarget(camGame, true);
 
 		camHUD = new FlxCamera();
 		camHUD.bgColor.alpha = 0;
@@ -154,10 +154,10 @@ class TitleState extends MusicBeatState {
 		bloom = new BloomShader();
 		bloom.Size.value = [3.0];
 
-		camHUD.setFilters([new ShaderFilter(ntsc = new NTSCSFilter()), new ShaderFilter(bloom)]);
-		@:privateAccess var shadersButCooler:Array<BitmapFilter> = [for (shader in camHUD._filters) shader]; // W NAMING!!!!
+		camHUD.camFilters = [new ShaderFilter(ntsc = new NTSCSFilter()), new ShaderFilter(bloom)];
+		@:privateAccess var shadersButCooler:Array<BitmapFilter> = [for (shader in camHUD.camFilters) shader]; // W NAMING!!!!
 		shadersButCooler.push(new ShaderFilter(staticShader = new TVStatic()));
-		FlxG.camera.setFilters(shadersButCooler);
+		FlxG.camera.camFilters = shadersButCooler;
 
 		blackSprite = new FlxSprite().makeGraphic(FlxG.width * 3, FlxG.height * 3, FlxColor.BLACK);
 		blackSprite.updateHitbox();
@@ -181,7 +181,7 @@ class TitleState extends MusicBeatState {
 		floor.antialiasing = ClientPrefs.globalAntialiasing;
 		floor.scale.set(0.95, 0.95);
 		floor.updateHitbox();
-		floor.setPosition(-40.0567375886525, 360); // bros being specific
+		floor.setPosition(-40.0567375886525, 360); // bros being specific // who let bro cook though?
 		bottomGroup.add(floor);
 
 		for (i in 0...2) {
@@ -197,6 +197,7 @@ class TitleState extends MusicBeatState {
 			handShaders.push(cast hand.shader = new NTSCGlitch(0.2));
 
 			hand.flipX = i == 1; // WHAT NO WAY!!
+			// shiver me timbers little bro
 
 			hand.ID = i;
 			hands.push(hand);

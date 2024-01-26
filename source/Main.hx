@@ -1,5 +1,6 @@
 package;
 
+import flixel.util.FlxStringUtil;
 import flixel.FlxCamera;
 import flixel.FlxG;
 import flixel.FlxGame;
@@ -11,16 +12,9 @@ import openfl.display.FPS;
 import openfl.display.Sprite;
 import openfl.events.Event;
 import openfl.system.System;
-#if cpp
 import cpp.vm.Gc;
-#elseif hl
-import hl.Gc;
-#elseif java
-import java.vm.Gc;
-#elseif neko
-import neko.vm.Gc;
-#end
 
+@:access(openfl.display.Sprite) // screaming in public restrooms prank!
 class Main extends Sprite {
 	public static var initialState:Class<FlxState> = TitleState; // The FlxState the game starts with.
 	public static var gameWidth:Int = initialState == TitleState ? 921 : 1280; // Width of the game in pixels (might be less / more in actual pixels depending on your zoom).
@@ -104,7 +98,7 @@ class Main extends Sprite {
 		if (FlxG.cameras == null) return;
 		for (cam in FlxG.cameras.list) {
 			@:privateAccess
-			if (cam != null && (cam._filters != null || cam._filters != []))
+			if (cam != null && cam.camFilters != [])
 				fixShaderSize(cam.flashSprite);
 		}	
 	}
@@ -124,14 +118,9 @@ class Main extends Sprite {
 	}
 
 	public static function clearMajor() {
-		#if cpp
 		Gc.run(true);
 		Gc.compact();
-		#elseif hl
-		Gc.major();
-		#elseif (java || neko)
-		Gc.run(true);
-		#end
+		trace(FlxStringUtil.formatBytes(Gc.memUsage(), 1));
 	}
 }
 

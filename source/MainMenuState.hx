@@ -161,7 +161,7 @@ class MainMenuState extends MusicBeatState {
 			win.resizable = true;
 		}
 		
-		Lib.application.window.resizable = lime._internal.backend.native.NativeApplication.fullscreenable = true;
+		Lib.application.window.resizable = true; // fullscreenable is NOT a variable name that makes sense in this case scenario
 
 		if(FlxG.sound.music == null){
 			FlxG.sound.playMusic(Paths.music('freakyMenu'));

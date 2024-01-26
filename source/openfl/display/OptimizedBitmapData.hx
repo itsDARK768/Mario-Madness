@@ -15,11 +15,8 @@ import openfl.geom.Rectangle;
  */
 class OptimizedBitmapData extends BitmapData {
 	@SuppressWarnings("checkstyle:Dynamic")
-	@:noCompletion private override function __fromImage(image:#if lime Image #else Dynamic #end):Void
-	{
-		#if lime
-		if (image != null && image.buffer != null)
-		{
+	@:noCompletion private override function __fromImage(image:Image):Void {
+		if (image != null && image.buffer != null) {
 			this.image = image;
 
 			width = image.width;
@@ -43,31 +40,15 @@ class OptimizedBitmapData extends BitmapData {
 
 			readable = true;
 			this.image = null;
-
-			// @:privateAccess
-			// if (FlxG.bitmap.__doNotDelete)
-			// 	MemoryUtil.clearMinor();
 		}
-		#end
 	}
 
-	@SuppressWarnings("checkstyle:Dynamic")
-	@:dox(hide) public override function getSurface():#if lime CairoImageSurface #else Dynamic #end
-	{
-		#if lime
-		if (__surface == null)
-		{
-			__surface = CairoImageSurface.fromImage(image);
-		}
-
-		return __surface;
-		#else
-		return null;
-		#end
-	}
+	public override function getSurface():CairoImageSurface
+		return __surface == null ? __surface = CairoImageSurface.fromImage(image) : __surface;
 
 	public static function fromImage(image:Image, transparent:Bool = true):OptimizedBitmapData {
-		if (image == null || image.buffer == null) return null;
+		if (image == null || image.buffer == null)
+			return null;
 
 		var bitmapData = new OptimizedBitmapData(0, 0, transparent, 0);
 		bitmapData.__fromImage(image);

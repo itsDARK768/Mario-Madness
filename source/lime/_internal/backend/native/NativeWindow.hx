@@ -669,6 +669,25 @@ class NativeWindow
 		NativeCFFI.lime_window_warp_mouse(handle, x, y);
 		#end
 	}
+
+	public function setVisible(val:Bool)
+		return parent.hidden = val;
+
+	public function setMinSize(width:Int, height:Int) {
+		parent.minWidth = width;
+		parent.minHeight = height;
+	}
+
+	public function setMaxSize(width:Int, height:Int) {
+		parent.maxWidth = width;
+		parent.maxHeight = height;
+	}
+
+	public function getOpacity()
+		return parent.opacity;
+
+	public function setOpacity(val:Float)
+		parent.opacity = val;
 }
 
 @:enum private abstract MouseCursorType(Int) from Int to Int

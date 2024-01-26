@@ -1,5 +1,7 @@
 package openfl.display;
 
+import flixel.util.FlxStringUtil;
+import cpp.vm.Gc;
 import flixel.math.FlxMath;
 import haxe.Timer;
 import openfl.events.Event;
@@ -86,21 +88,15 @@ class FPS extends TextField
 			var memoryMegas:Float = 0;
 			
 			#if openfl
-			memoryMegas = Math.abs(FlxMath.roundDecimal(System.totalMemory / 1000000, 1));
-			text += "\nMemory: " + memoryMegas + " MB";
+			memoryMegas = Gc.memUsage();
+			text += "\nMemory: " + FlxStringUtil.formatBytes(memoryMegas, 0);
 			#end
 
 			textColor = 0xFFa11b1b;
-			if (memoryMegas > 3000 || currentFPS <= ClientPrefs.framerate / 2 || PlayState.virtualmode == true)
+			if (currentFPS <= ClientPrefs.framerate / 2 || PlayState.virtualmode == true)
 			{
 				textColor = 0xFFe30000;
 			}
-
-			#if (gl_stats && !disable_cffi && (!html5 || !canvas))
-			text += "\ntotalDC: " + Context3DStats.totalDrawCalls();
-			text += "\nstageDC: " + Context3DStats.contextDrawCalls(DrawCallContext.STAGE);
-			text += "\nstage3DDC: " + Context3DStats.contextDrawCalls(DrawCallContext.STAGE3D);
-			#end
 
 			text += "\n";
 		}

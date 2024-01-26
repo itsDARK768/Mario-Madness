@@ -218,7 +218,7 @@ class PauseSubState extends MusicBeatSubstate
 
 		botplayText = new FlxText(20, FlxG.height - 40, 0, "BOTPLAY", 32);
 		botplayText.scrollFactor.set();
-		botplayText.setFormat(Paths.font('vcr.ttf'), 32);
+		botplayText.setFormat(Paths.font('mariones.ttf'), 32);
 		botplayText.x = FlxG.width - (botplayText.width + 20);
 		botplayText.updateHitbox();
 		botplayText.visible = PlayState.cpuControlled;

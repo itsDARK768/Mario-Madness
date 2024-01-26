@@ -225,6 +225,17 @@ class Character extends FlxSprite
 					}
 			}*/
 		}
+
+		specialShit();
+	}
+
+	function specialShit() {
+		switch (curCharacter) {
+			default:
+				return;
+			case 'omega':
+				shader = new modules.fixedshaders.CRT();
+		}
 	}
 
 	override function update(elapsed:Float)
