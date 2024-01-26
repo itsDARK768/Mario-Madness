@@ -46,7 +46,10 @@ class PatchNotes extends MusicBeatState
 	private var verBoxes:FlxTypedGroup<FlxSprite>;
 	private var verSprites:FlxTypedGroup<FlxSprite>;
 
-	var versions:Array<Dynamic> = [['2.0.1', '01/23/2024']/*, ['3.0.0', '01/08/2035']*/];
+	var versions:Array<Dynamic> = [
+		['2.0.1', '01/23/2024'],
+		['2.1', '06/09/0000']
+	];
 
 	override function create()
 	{
@@ -229,7 +232,10 @@ class PatchNotes extends MusicBeatState
 	function changePatchNotes(ver:Int) {
 
 		FlxG.sound.play(Paths.sound('scrollMenu'), 0.4);
-		noteText.text = File.getContent(Paths.txt('Patchs/' + ver));
+		noteText.text = '';
+		var note = File.getContent(Paths.txt('Patchs/' + ver)).split('\n');
+		for (id=>n in note)
+			noteText.text += '$n\n';
 		noteText.visible = true;
 		noteText.y = 30;
 		pageBar.visible = true;

@@ -92,6 +92,8 @@ class FPS extends TextField
 			text += "\nMemory: " + FlxStringUtil.formatBytes(memoryMegas, 0);
 			#end
 
+			text += '\n(UNSTABLE)';
+
 			textColor = 0xFFa11b1b;
 			if (currentFPS <= ClientPrefs.framerate / 2 || PlayState.virtualmode == true)
 			{

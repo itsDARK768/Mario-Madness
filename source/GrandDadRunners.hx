@@ -7,7 +7,10 @@ import flixel.util.FlxTimer;
 
 class GrandDadRunners extends FlxSprite
 {
-	var animsArray:Array<String> = [
+	/**
+	 * Made this variable adjustable in the case you want to change this for whatever reason, non-static tho.
+	 */
+	public var animsArray:Array<String> = [
 		"buff luigi run",
 		"bulk bogan run",
 		"fella and nozomi",

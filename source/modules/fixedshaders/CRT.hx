@@ -1,8 +1,6 @@
 package modules.fixedshaders;
 
-import modules.RuntimeFilter;
-
-class CRT extends RuntimeFilter {
+class CRT extends TemplateShader {
     private var fragmentSource:String = '#pragma header
 
     // https://www.shadertoy.com/view/4scSR8
@@ -202,12 +200,9 @@ class CRT extends RuntimeFilter {
 		gl_FragColor.rgb = tri(pos) * mask(openfl_TextureCoordv.xy * openfl_TextureSize.xy);
 		gl_FragColor = vec4(toSrgb(gl_FragColor.rgb), 1.0);
 	}';
-
-    /**
-     * Any form of thing within **data** should be counted as a ShaderParameter
-     */
+    
     public function new() {
-        super(fragmentSource, null, 120);
+        super(fragmentSource, false);
 
         data.res.value = [256.0 / 0.5, 224.0 / 0.5];
 		data.sHardScan.value = [-8.0];

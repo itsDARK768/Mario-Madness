@@ -1,8 +1,6 @@
 package modules.fixedshaders;
 
-import modules.RuntimeFilter;
-
-class Angel extends RuntimeFilter {
+class Angel extends TemplateShader {
     private var fragmentSource:String = '#pragma header
 
 	uniform float stronk;
@@ -91,11 +89,12 @@ class Angel extends RuntimeFilter {
 	}
 
     public function new() {
-        super(fragmentSource, null, 120);
-
-        setFloat('iTime', 0);
+        super(fragmentSource, true, 'iTime');
     }
 
-    public function update(elapsed:Float)
-        setFloat('iTime', getFloat('iTime') + elapsed); // devastation
+	override function update(elapsed:Float) {
+		super.update(elapsed);
+
+		setFloat('iTime', Conductor.songPosition / 1000); // kinda weird tbh
+	}
 }

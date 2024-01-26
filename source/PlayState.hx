@@ -792,7 +792,7 @@ class PlayState extends MusicBeatState
 	public var oldFX:OldTVShader;
 	public var contrastFX:BrightnessContrastShader;
 	var beatend:YCBUEndingShader;
-	var angel:AngelShader;
+	var angel:modules.fixedshaders.Angel;
 
 	var dupe:CamDupeShader;
 	var dupeTimer:Int = 0;
@@ -2390,7 +2390,7 @@ class PlayState extends MusicBeatState
 				effect = new SMWPixelBlurShader();
 				dupe = new CamDupeShader();
 				dupe.mult = 1;
-				angel = new AngelShader();
+				angel = new modules.fixedshaders.Angel();
 				camGame.setFilters([new ShaderFilter(effect.shader), new ShaderFilter(dupe), new ShaderFilter(angel)]);
 				camHUD.setFilters([new ShaderFilter(angel)]);
 				// trace(winx + ' and ' + winy);
@@ -3681,20 +3681,6 @@ class PlayState extends MusicBeatState
 				GameOverSubstate.vaCount = 12;
 				noCount = true;
 
-				addCharacterToList('omega', 1);
-				addCharacterToList('w4r', 2);
-				addCharacterToList('lg2', 1);
-				addCharacterToList('bf_behind', 0);
-				addCharacterToList('bfASsad', 0);
-				addCharacterToList('gx', 1);
-				addCharacterToList('bf_ultrafinale', 0);
-				addCharacterToList('bf_ultrafinale2', 0);
-				addCharacterToList('mario_ultra2', 1);
-				addCharacterToList('bf_ultrafinale3', 0);
-				addCharacterToList('mario_ultra3', 1);
-				addCharacterToList('bfASdeath', 0);
-				addCharacterToList('gfASdeath', 0);
-
 				BF_CAM_EXTEND = 30;
 
 				//act 1 stage
@@ -4338,6 +4324,22 @@ class PlayState extends MusicBeatState
 		}
 
 		add(boyfriendGroup); // BOYFRIEND LAYER
+
+		if (PlayState.SONG.song == 'All-Stars') {
+			addCharacterToList('omega', 1);
+				addCharacterToList('w4r', 2);
+				addCharacterToList('lg2', 1);
+				addCharacterToList('bf_behind', 0);
+				addCharacterToList('bfASsad', 0);
+				addCharacterToList('gx', 1);
+				addCharacterToList('bf_ultrafinale', 0);
+				addCharacterToList('bf_ultrafinale2', 0);
+				addCharacterToList('mario_ultra2', 1);
+				addCharacterToList('bf_ultrafinale3', 0);
+				addCharacterToList('mario_ultra3', 1);
+				addCharacterToList('bfASdeath', 0);
+				addCharacterToList('gfASdeath', 0);
+		}
 
 		switch (curStage)
 		{
@@ -5661,7 +5663,7 @@ class PlayState extends MusicBeatState
 
 				if(curStage == 'nesbeat'){
 					beatend = new YCBUEndingShader();
-					angel = new AngelShader();
+					angel = new modules.fixedshaders.Angel();
 					camGame.setFilters([new ShaderFilter(vcr), new ShaderFilter(border), new ShaderFilter(beatend), new ShaderFilter(angel)]);
 					camEst.setFilters([new ShaderFilter(vcr), new ShaderFilter(border), new ShaderFilter(angel)]);
 				}
@@ -7226,8 +7228,7 @@ class PlayState extends MusicBeatState
 				angel.strength = FlxMath.lerp(angel.strength, 0, CoolUtil.boundTo(elapsed * 8, 0, 1));
 
 			angel.pixelSize = FlxMath.lerp(angel.pixelSize, 1, CoolUtil.boundTo(elapsed * 4, 0, 1));
-			angel.data.iTime.value = [Conductor.songPosition / 1000];
-
+			// angel.data.iTime.value = [Conductor.songPosition / 1000];
 		}
 		if(cpuControlled && (curStage != 'virtual' && curStage != 'landstage' && curStage != 'somari' && curStage != 'endstage' && curStage != 'piracy')){
 			notes.forEachAlive(function(note:Note){

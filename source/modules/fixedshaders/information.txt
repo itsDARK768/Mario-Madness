@@ -1,0 +1,3 @@
+these are mostly for intensive shaders
+
+this can increase performance just a bit, which can be very useful for low end users that want that nice, but smooth experience (unless your that guy using vista)

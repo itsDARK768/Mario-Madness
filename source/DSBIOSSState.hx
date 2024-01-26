@@ -29,7 +29,7 @@ enum DSState
 	FlashCart;
 }
 
-class DSBIOSSState extends FlxState
+class BIOS extends FlxState
 {
 	public var topScreen:FlxSprite;
 	public var topCanvas:FlxSprite;
@@ -105,7 +105,8 @@ class DSBIOSSState extends FlxState
 		Lib.current.scaleX = 2.5;
 		Lib.current.scaleY = 2.5;
 		Main.fpsVar.visible = false;
-		FlxG.mouse.load(TitleState.mouse.pixels, 0.8);
+		// FlxG.mouse.load(TitleState.mouse.pixels, 0.8);
+		FlxG.mouse.useSystemCursor = true;
 		
 		FlxG.cameras.add(mainCam);
 
@@ -179,6 +180,8 @@ class DSBIOSSState extends FlxState
 			}
 		}
 
+		trace('made it past here');
+
 		clock = new FlxSprite(14, 46).loadGraphic(Paths.image('dsclock'));
 		clock.antialiasing = false;
 		clock.cameras = [mainCam];
@@ -188,6 +191,10 @@ class DSBIOSSState extends FlxState
 		clockHands.antialiasing = false;
 		clockHands.cameras = [mainCam];
 		add(clockHands);
+
+		/**
+		 * TODO: fix palette sprites, they appear to crash the game somehow?
+		 */
 
 		topBar = new PaletteSprite(0, -16);
 		topBar.loadGraphic(Paths.image('topBar'), false, 0, 0, true);
@@ -219,6 +226,8 @@ class DSBIOSSState extends FlxState
 		removeSpacers(dateText);
 		dateText.cameras = [mainCam];
 		add(dateText);
+
+		trace('this shit works');
 
 		separators = new FlxSprite(143, -16).loadGraphic(Paths.image('separators'));
 		separators.antialiasing = false;
@@ -316,6 +325,8 @@ class DSBIOSSState extends FlxState
 			trace("button pressed: alarm");
 		}
 
+		trace('find my pages.');
+
 		var cursor = new PaletteSprite(0, 0);
 		cursor.loadGraphic(Paths.image('dsCursor'));
 		cursor.antialiasing = false;
@@ -373,8 +384,8 @@ class DSBIOSSState extends FlxState
 		touch.cameras = [mainCam];
 		add(touch);
 
-		intro = new DSVideo(Paths.video('dsintro'), mainCam, this);
-		add(intro);
+		// intro = new DSVideo(Paths.video('dsintro'), mainCam, this);
+		// add(intro);
 
 		lazyAss = new FlxTimer();
 		lazyAss.start(60, function(timer:FlxTimer)
@@ -392,10 +403,10 @@ class DSBIOSSState extends FlxState
 
 	override function update(elapsed:Float)
 	{
-		FlxG.stage.quality = flash.display.StageQuality.LOW;
+		FlxG.stage.quality = LOW;
 		if (state == DSState.Welcome)
 		{
-			if (touchTimer == null && intro.finished)
+			if (touchTimer == null)
 			{
 				introStatic.alpha = 1;
 				touchTimer = new FlxTimer();
